@@ -1,10 +1,21 @@
 let btns = document.getElementsByTagName("button");
-let calc = document.getElementById("calc");
+let calc = document.querySelector("#calc");
+
+window.addEventListener('DOMContentLoaded', (event) => {
+    darkTheme();
+});
+
+function back() {
+    let value = calc.value;
+    calc.value = value.substr(0, value.length - 1);
+}
 
 for (let thisBtn of btns) {
     thisBtn.addEventListener("click", function() {
         if (this.innerHTML == "=") calc.value = eval(calc.value);
-        else if (this.innerHTML == "C") calc.value = "";
+        else if (this.id == "back") {
+            back();
+        } else if (this.innerHTML == "C") calc.value = "";
         else if (
             this.innerHTML == "Red" ||
             this.innerHTML == "Green" ||
@@ -15,11 +26,6 @@ for (let thisBtn of btns) {
             calc.value = calc.value;
         else calc.value += this.innerHTML;
     });
-}
-
-function back() {
-    let value = document.getElementById("calc").value;
-    document.getElementById("calc").value = value.substr(0, value.length - 1);
 }
 
 // let regEx = /^\s*([-+]?)(\d+)(?:\s*([-+*\/])\s*((?:\s[-+])?\d+)\s*)+$/;
@@ -98,6 +104,24 @@ function lightTheme() {
     elementField.style.color = "black";
     enableColors();
 }
+
+$(document).ready(function() {
+    $("#equal").on("click", function() {
+        var codeEntered = $("input[name='calc']").val();
+        if (codeEntered == "16032020") {
+            $('#divLight').css("display", "block");
+            $('#divDark').css("display", "block");
+            $('.colorSelect').css("display", "block");
+            console.log("Themes unlocked!");
+        };
+    });
+});
+
+/*
+    document.querySelector("#divLight").style.display = "block";
+    document.querySelector("#divDark").style.display = "block";
+    console.log("themes unlocked!");
+*/
 
 let egg = new Egg();
 egg
